@@ -1,8 +1,17 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useEffect } from 'react'
+
+
+
+
 
 const Home: NextPage = () => {
+  // @ts-ignore
+  useEffect(() => { import('tw-elements'); }, []);
+
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
@@ -11,12 +20,9 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
+        <div className="bg-blue-100 rounded-lg py-5 px-6 mb-4 text-base text-blue-700 " role="alert">
+          A simple primary alert - check it out!
+        </div>
 
         <p className="mt-3 text-2xl">
           Get started by editing{' '}
@@ -66,6 +72,9 @@ const Home: NextPage = () => {
             </p>
           </a>
         </div>
+
+  
+
       </main>
 
       <footer className="flex h-24 w-full items-center justify-center border-t">
