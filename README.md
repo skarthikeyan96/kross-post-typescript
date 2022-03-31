@@ -1,23 +1,61 @@
-# Next.js + Tailwind CSS Example
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+# Kross post
 
-## Deploy your own
+A simple application to cross post articles across dev.to, hashnode and medium
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+## Environment Variables
 
-## How to use
+To run this project, you will need to add the following environment variables to your .env file
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-# or
-pnpm create next-app -- --example with-tailwindcss with-tailwindcss-app
+```
+AUTH0_BASE_URL=
+AUTH0_SECRET=
+AUTH0_CLIENT_SECRET=
+AUTH0_ISSUER_BASE_URL=
+AUTH0_AUDIENCE=
+AUTH0_CLIENT_ID=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+HASURA_SECRET=
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/skarthikeyan96/kross-post-typescript
+```
+
+Go to the project directory
+
+```bash
+  cd kross-post-typescript
+```
+
+Install dependencies
+
+```bash
+  yarn install
+```
+
+Start the server
+
+```bash
+  yarn dev
+```
+
+
+## Screenshots
+
+![image](https://user-images.githubusercontent.com/23126394/161131122-47619382-c1cf-4b14-8f74-80c77c63822a.png)
+
+
+## Demo
+
+https://user-images.githubusercontent.com/23126394/161132855-62b8a56d-ee07-44c6-baa3-e7ca1e92f58b.mov
+
+
