@@ -38,7 +38,7 @@ const Header = () => {
       <div className="container mx-auto flex h-28 min-h-0   flex-row flex-wrap items-center px-5">
         <Link href="/" passHref>
           <a className="title-font mb-0 flex items-center font-medium text-gray-900">
-            <span className="dark:text-white font text-xl tracking-wide text-black">
+            <span className="font text-xl tracking-wide text-black dark:text-white">
               kross post
             </span>
           </a>
@@ -63,7 +63,7 @@ const Header = () => {
             <>
               {!isCreate && (
                 <Link href="/create" passHref>
-                  <a className="mr-8 inline-flex items-end text-sm font-bold hover:text-gray-900  text-gray-800  dark:text-white">
+                  <a className="mr-8 inline-flex items-end text-sm font-bold text-gray-800  hover:text-gray-900  dark:text-white">
                     CREATE POST
                   </a>
                 </Link>
