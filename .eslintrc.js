@@ -41,5 +41,6 @@ module.exports = {
     'react/no-unescaped-entities': 'warn',
     'sonarjs/no-duplicate-string': "warn",
     'sonarjs/cognitive-complexity': 'warn',
+    'no-unused-vars': 'warn'
   }
 };

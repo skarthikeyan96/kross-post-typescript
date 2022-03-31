@@ -1,19 +1,18 @@
-import type { NextPage } from 'next'
+import { NextPage } from 'next'
 
+import CreatePostForm from '../components/createPostForm'
 import Header from '../components/header'
-import SettingsForm from '../components/settingsForm'
 import Wrapper from '../components/wrapper'
 import getSettings from '../utils/getSettings'
 import withApollo from '../utils/withApollo'
 
-const Settings: NextPage = (props: any) => {
-  const { settings } = props
+const Create: NextPage = (props: any) => {
   return (
     <>
       <Header />
       <Wrapper>
         <>
-          <SettingsForm preloadedValues={settings[0]} />
+          <CreatePostForm preloadedValues={props.settings[0]} />
         </>
       </Wrapper>
     </>
@@ -29,4 +28,4 @@ export const getServerSideProps = async (ctx: any) => {
   }
 }
 
-export default withApollo(Settings)
+export default withApollo(Create)

@@ -1,14 +1,15 @@
 import { useMutation, useQuery } from '@apollo/client'
 import { useUser } from '@auth0/nextjs-auth0'
-import uniqueId from 'lodash/uniqueId'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { v4 as uuidv4 } from 'uuid'
 
 import {
   ADD_SETTINGS,
   FIND_SETTINGS_ID_BY_USER,
   UPDATE_SETTINGS,
 } from '../graphql/queries'
+import { showAlert } from '../utils/helper'
 
 interface IFormValues {
   forem: string
@@ -27,7 +28,6 @@ const SettingsForm = ({ preloadedValues }: any) => {
     },
   })
   const [message, setMessage] = useState('')
-  const [, setMessageUpdateStatus] = useState(false)
 
   const { register, handleSubmit } = useForm<IFormValues>({
     defaultValues: {
@@ -40,12 +40,11 @@ const SettingsForm = ({ preloadedValues }: any) => {
 
   const onSubmit: SubmitHandler<IFormValues> = async (data) => {
     if (settingsId && settingsId.length === 0) {
-      setMessageUpdateStatus(true)
       setMessage('adding the settings to the DB ...')
       const res = await MyMutation({
         variables: {
           forem_key: data.forem,
-          id: Number.parseInt(uniqueId()),
+          id: uuidv4() as string,
           hashnode_key: data.hashnode,
           medium_key: data.medium,
           medium_username: data.mediumUserName,
@@ -54,10 +53,8 @@ const SettingsForm = ({ preloadedValues }: any) => {
       })
       if (res.data) {
         setMessage('settings added successfully')
-        setMessageUpdateStatus(false)
       }
     } else {
-      setMessageUpdateStatus(true)
       setMessage('settings updation in progress ...')
       const res = await updateSettings({
         variables: {
@@ -69,22 +66,11 @@ const SettingsForm = ({ preloadedValues }: any) => {
         },
       })
       if (res.data) {
-        setMessageUpdateStatus(false)
         setMessage('settings updated successfully')
       }
     }
   }
 
-  const showAlert = (message: string) => {
-    return (
-      <div
-        className="mb-3 rounded-lg bg-green-100 py-5 px-6 text-base text-green-700"
-        role="alert"
-      >
-        {message}
-      </div>
-    )
-  }
   return (
     <>
       {message && showAlert(message)}
