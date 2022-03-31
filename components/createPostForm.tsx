@@ -64,7 +64,7 @@ const CreatePostForm = (props: any) => {
 
     if (addPostMutationResponse?.data) {
       setMessage('added to the DB success, redirecting to homepage')
-      // TODO: check to see if you can remove the image from the cloudinary bucket after updating the DB 
+      // TODO: check to see if you can remove the image from the cloudinary bucket after updating the DB
       router.push('/posts')
     }
   }
