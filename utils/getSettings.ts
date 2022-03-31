@@ -22,7 +22,7 @@ export const getSettings = async (ctx:any)=>{
           hashnode_key
           id
           medium_key
-          medium_username
+          hashnode_publication_id
         }
       }
     `

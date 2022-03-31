@@ -3,10 +3,8 @@ import { useUser } from '@auth0/nextjs-auth0'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 import { v4 as uuidv4 } from 'uuid'
 
 import { ADD_POST } from '../graphql/queries'
@@ -14,6 +12,7 @@ import {
   postToForem,
   postToHashnode,
   postToMedium,
+  renderModal,
   showAlert,
 } from '../utils/helper'
 
@@ -36,6 +35,11 @@ const CreatePostForm = (props: any) => {
   const { user } = useUser()
 
   const { theme } = useTheme()
+
+  useEffect(() => {
+    // @ts-ignore
+    import('tw-elements')
+  }, [])
 
   const handleUpdatingtheDB = async (
     postUrl: string,
@@ -60,6 +64,7 @@ const CreatePostForm = (props: any) => {
 
     if (addPostMutationResponse?.data) {
       setMessage('added to the DB success, redirecting to homepage')
+      // TODO: check to see if you can remove the image from the cloudinary bucket after updating the DB 
       router.push('/posts')
     }
   }
@@ -68,6 +73,11 @@ const CreatePostForm = (props: any) => {
     let hashnodeStatus = false
     let foremStatus = false
     let mediumStatus = false
+
+    if (title.length === 0 || markdownContent.length === 0) {
+      setMessage('Please add content before publishing')
+      return
+    }
 
     const response = await postToForem(
       title,
@@ -131,6 +141,7 @@ const CreatePostForm = (props: any) => {
       imageUrl,
       tags,
       props.preloadedValues.hashnode_key,
+      props.preloadedValues.hashnode_publication_id,
       canonical_url
     )
     if (response?.status === 200) {
@@ -202,8 +213,6 @@ const CreatePostForm = (props: any) => {
     }
   }
 
-  const handlePreview = () => {}
-
   return (
     <>
       {message && showAlert(message)}
@@ -219,7 +228,9 @@ const CreatePostForm = (props: any) => {
           </button>
           <button
             type="button"
-            onClick={handlePreview}
+            disabled={markdownContent.length === 0}
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
             className="inline-flex  rounded border-2 py-2  px-6 text-sm tracking-wider text-black focus:outline-none  dark:text-white"
           >
             Preview
@@ -294,21 +305,26 @@ const CreatePostForm = (props: any) => {
           placeholder="Enter tags separated by comma"
           onChange={(e) => setTags(e.target.value)}
         />
-        <div>
-          <MonacoEditor
-            height="70vh"
-            className="mt-4 rounded-lg border"
-            theme={theme === 'dark' ? 'vs-dark' : 'light'}
-            defaultLanguage="markdown"
-            defaultValue="Paste your markdown content below"
-            onChange={handleEditorChange}
-            options={{
-              lineNumbers: false,
-              minimap: {
-                enabled: false,
-              },
-            }}
-          />
+        <div className="mt-4">
+          <label className="block">
+            <span className="pr-4 font-bold text-gray-700 dark:text-slate-200">
+              {' '}
+              Editor{' '}
+            </span>
+            <MonacoEditor
+              height="65vh"
+              className="mt-4 rounded-lg border"
+              theme={theme === 'dark' ? 'vs-dark' : 'light'}
+              defaultLanguage="markdown"
+              onChange={handleEditorChange}
+              options={{
+                lineNumbers: false,
+                minimap: {
+                  enabled: false,
+                },
+              }}
+            />
+          </label>
         </div>
         {/* <div>
             <div
@@ -330,6 +346,7 @@ const CreatePostForm = (props: any) => {
           </div>
         </div>
       </footer>
+      {renderModal(markdownContent)}
     </>
   )
 }

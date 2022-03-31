@@ -6,14 +6,13 @@ import Wrapper from '../components/wrapper'
 import getSettings from '../utils/getSettings'
 import withApollo from '../utils/withApollo'
 
-const Settings: NextPage = (props: any) => {
-  const { settings } = props
+const Settings: NextPage = () => {
   return (
     <>
       <Header />
       <Wrapper>
         <>
-          <SettingsForm preloadedValues={settings[0]} />
+          <SettingsForm />
         </>
       </Wrapper>
     </>

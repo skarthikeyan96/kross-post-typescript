@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const ADD_SETTINGS = gql`
-mutation MyMutation($forem_key: String = "", $hashnode_key: String = "", $medium_key: String = "", $medium_username: String, $user_id: String = "", $id: Int = 10) {
-    insert_settings(objects: {forem_key: $forem_key, hashnode_key: $hashnode_key, id: $id, medium_key: $medium_key, medium_username: $medium_username, user_id: $user_id}) {
+mutation MyMutation($forem_key: String = "", $hashnode_key: String = "", $medium_key: String = "", $hashnode_publication_id: String, $user_id: String = "", $id: String) {
+    insert_settings(objects: {forem_key: $forem_key, hashnode_key: $hashnode_key, id: $id, medium_key: $medium_key, hashnode_publication_id: $hashnode_publication_id, user_id: $user_id}) {
       affected_rows
     }
   }
@@ -16,13 +16,13 @@ query Settings($user_id: String = "") {
       hashnode_key
       id
       medium_key,
-      medium_username
+      hashnode_publication_id
     }
   }
   `
 export const UPDATE_SETTINGS = gql`
-mutation updateSettings($forem_key: String = "", $hashnode_key: String = "", $medium_key: String = "", $medium_username: String = "", $user_id: String = "") {
-    update_settings(where: {user_id: {_eq: $user_id}}, _set: {forem_key: $forem_key, hashnode_key: $hashnode_key, medium_key: $medium_key, medium_username: $medium_username}) {
+mutation updateSettings($forem_key: String = "", $hashnode_key: String = "", $medium_key: String = "", $hashnode_publication_id: String = "", $user_id: String = "") {
+    update_settings(where: {user_id: {_eq: $user_id}}, _set: {forem_key: $forem_key, hashnode_key: $hashnode_key, medium_key: $medium_key, hashnode_publication_id: $hashnode_publication_id}) {
       affected_rows
     }
   }  

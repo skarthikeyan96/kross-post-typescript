@@ -1,3 +1,6 @@
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
 export const setHeaders = (authKey: string, authValue: string) => {
     var myHeaders = new Headers();
     myHeaders.append(authKey, authValue);
@@ -39,9 +42,21 @@ export const postToForem = async (title: string, markdownContent: string, imageU
   };
 
 
-  export const postToHashnode = async (title: string, markdownContent: string, imageUrl: string, tags: string, hashnode_key: string, canonical_url?: string, ) => {
-    const query =
-      'mutation createPublicationStory($input: CreateStoryInput!) {\n  createPublicationStory(\n    input: $input\n    publicationId: "5faeafa108f9e538a0136e73"\n    hideFromHashnodeFeed: false\n  ) {\n    code\n    success\n    message\n  }\n}\n';
+  export const postToHashnode = async (title: string, markdownContent: string, imageUrl: string, tags: string, hashnode_key: string, hashnode_publication_id: string, canonical_url?: string) => {
+
+    const query = `
+    mutation createPublicationStory($input: CreateStoryInput!, $publicationId: String!) {
+      createPublicationStory(
+        input: $input,
+        publicationId: $publicationId
+        hideFromHashnodeFeed: false
+      ) {
+        code
+        success
+        message
+      }
+    }    
+    `
     const variables = {
       input: {
         title,
@@ -59,6 +74,7 @@ export const postToForem = async (title: string, markdownContent: string, imageU
           originalArticleURL: canonical_url,
         },
       },
+      publicationId: hashnode_publication_id
     };
 
     const response = await fetch("https://api.hashnode.com/", {
@@ -129,6 +145,49 @@ export const postToForem = async (title: string, markdownContent: string, imageU
         role="alert"
       >
         {message}
+      </div>
+    )
+  }
+
+  const showMarkdownPreview = (markdownContent: any) => {
+    return(
+      <div
+      className="dark:prose-invert prose prose-slate max-w-none overflow-auto rounded-lg border p-4 focus:outline-none"
+      style={{ height: "70vh" }}
+    >
+      <ReactMarkdown
+        children={markdownContent}
+        remarkPlugins={[remarkGfm]}
+      />
+    </div>
+    )
+  }
+  export const renderModal = (markdownContent: any) => {
+    return(
+
+      <div className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none"
+        id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" 
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal-dialog relative max-w-none pointer-events-none" style={{width: "90%"}}>
+          <div
+            className="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+            <div
+              className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+              <h5 className="text-xl font-medium leading-normal text-gray-800" id="exampleModalLabel">
+                Post Preview
+              </h5>
+              <button type="button"
+                className="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body relative p-4">
+             {
+             showMarkdownPreview(markdownContent)
+             }
+            </div>
+ 
+          </div>
+        </div>
       </div>
     )
   }
