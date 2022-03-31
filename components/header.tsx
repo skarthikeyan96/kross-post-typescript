@@ -68,6 +68,11 @@ const Header = () => {
                   </a>
                 </Link>
               )}
+              <Link href="/posts" passHref>
+                <a className="mr-8 inline-flex items-end text-sm font-bold text-gray-800  hover:text-gray-900  dark:text-white">
+                  DASHBOARD
+                </a>
+              </Link>
 
               {renderThemeToggle()}
 
