@@ -29,7 +29,7 @@ function Profile(props: any) {
         </div>
       </section>
       <div className="mt-20 text-center">
-        <h3 className="tracking  text-blueGray-700 mb-2 text-4xl leading-normal tracking-wider">
+        <h3 className="tracking  text-blueGray-700 mb-2 text-4xl font-light leading-normal tracking-wider">
           {user.nickname}.
         </h3>
       </div>
