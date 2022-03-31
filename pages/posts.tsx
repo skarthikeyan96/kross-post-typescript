@@ -8,7 +8,6 @@ import Header from '../components/header'
 import Wrapper from '../components/wrapper'
 
 const Posts: NextPage = (props: any) => {
-
   const renderPost = () => {
     if (props.post.length === 0) {
       return (
