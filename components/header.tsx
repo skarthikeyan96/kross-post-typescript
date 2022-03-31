@@ -1,37 +1,15 @@
 import { useUser } from '@auth0/nextjs-auth0'
-import { MoonIcon, SunIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTheme } from 'next-themes'
 
 import Profile from '../components/menu'
 
 const Header = () => {
   const { user } = useUser()
-  const { systemTheme, theme, setTheme } = useTheme()
 
   const router = useRouter()
 
   const isCreate = router.pathname === '/create'
-
-  const renderThemeToggle = () => {
-    const currentTheme = theme === 'system' ? systemTheme : theme
-    if (currentTheme === 'dark') {
-      return (
-        <SunIcon
-          className="mr-8 h-8 w-8 cursor-pointer"
-          onClick={() => setTheme('light')}
-          type="button"
-        />
-      )
-    }
-    return (
-      <MoonIcon
-        className="mr-8 h-8 w-8 cursor-pointer"
-        onClick={() => setTheme('dark')}
-      />
-    )
-  }
 
   return (
     <header className="body-font text-gray-600">
@@ -54,7 +32,7 @@ const Header = () => {
               </Link>
 
               <Link href="/api/signup" passHref>
-                <button className="inline-flex rounded border-0 bg-indigo-500 py-2 px-6 text-sm tracking-wider text-white hover:bg-indigo-600 focus:outline-none">
+                <button className="inline-flex rounded border-0 bg-slate-900 py-2 px-6 text-sm tracking-wider text-white focus:outline-none">
                   REGISTER
                 </button>
               </Link>
@@ -73,9 +51,6 @@ const Header = () => {
                   DASHBOARD
                 </a>
               </Link>
-
-              {renderThemeToggle()}
-
               <Profile image={user.picture} />
             </>
           )}
