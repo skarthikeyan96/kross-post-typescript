@@ -1,4 +1,6 @@
 
+NOTE: I have taken down the current deployed production version of kross post. I am rebuilding it with different stack
+
 # Kross post
 
 A simple application to cross post articles across dev.to, hashnode and medium
